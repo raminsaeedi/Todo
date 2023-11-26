@@ -1,0 +1,34 @@
+﻿@page "/todolist"
+
+<h3>Todo List</h3>
+<input type="text" @bind="newTodoItem" />
+<button @onclick="AddTodoItem">Add new Todo</button>
+
+<ol>
+    @foreach (var todoItem in todoList)
+    {
+        <li>@todoItem 
+            <button @onclick="(()=> DeleteTodoItem(todoItem))">Delete</button>
+        </li>
+    }
+</ol>
+
+@code {
+    List<string> todoList = new();
+    private string newTodoItem = "";
+
+    void AddTodoItem()
+    {
+        if (string.IsNullOrWhiteSpace(newTodoItem) == false)
+        {
+            todoList.Add(newTodoItem);
+            newTodoItem = "";
+        }
+    }
+
+    void DeleteTodoItem(string todoItemtoDelete)
+    {
+        todoList.Remove(todoItemtoDelete);
+        
+    }
+}
